@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "35e2eb19-8308-4a21-a7de-7707915a543e",
+		"name": "Details",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "pull full student Info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "388bec8c-c174-4ea8-aa73-c0d43f35dbef",
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"console.log(jsonData.length)\r",
+							"\r",
+							"console.log(jsonData[0].last_name)\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test('Get method Work', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test('Get code Matched', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Status code Name\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9cb36140-a85e-4339-84b4-ea026f8d4aed",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{URL}}/api/studentsDetails"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Student Info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c6fd8b5-9101-4766-9a57-bc5ebaa5ae78",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"ID\", jsonData.id);\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test('Post method Work', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"})\r",
+							"\r",
+							"pm.test('POST code Matched', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Status code Name\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"\r",
+							" pm.test('Check ID accept only Number Data Type ', function () {\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"   pm.expect(jsonData.id).to.be.a(\"number\");\r",
+							"})\r",
+							" \r",
+							"\r",
+							" pm.test('Check name accept only String Data Type ', function () {\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"   pm.expect(jsonData.last_name).to.be.a(\"string\");\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Date of birth accept only String Data Type', function () {\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"   pm.expect(jsonData.date_of_birth).to.be.a(\"string\");\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "661dfc4a-65d9-4e51-8477-13ae4c8f6cd6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"first_name\": \"Sabbir\",\r\n  \"middle_name\": \"Al\",\r\n  \"last_name\": \"Mamun\",\r\n  \"date_of_birth\": \"5/10/2000\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{URL}}/api/studentsDetails"
+			},
+			"response": []
+		},
+		{
+			"name": "Pull new student Info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "97202a57-5cf0-449c-9dcc-e01a772c7bcf",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test('Get method Work', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Get code Matched', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code Name\", function () {\r",
+							"    pm.response.to.have.status(200); // Changed status check to numeric value instead of string\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "ca9a7cbd-aa22-4180-98ff-485cccff7cd8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{URL}}/api/studentsDetails/{{ID}}"
+			},
+			"response": []
+		}
+	]
+}
